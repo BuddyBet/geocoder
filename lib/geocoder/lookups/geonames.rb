@@ -15,18 +15,18 @@ module Geocoder::Lookup
     # URL to use for querying the geocoding engine.
     #
     def query_url(query)
-      "#{protocol}://api.geonames.org/#{lookup_method(query)}JSON?#{url_query_string(query)}"
+      "#{protocol}://api.geonames.org/#{lookup_method(query)}?#{url_query_string(query)}"
     end
 
     private # ---------------------------------------------------------------
 
     def lookup_method(query)
-      query.reverse_geocode? ? "countrySubdivision" : "search"
+      query.reverse_geocode? ? "countrySubdivisionJSON" : "searchJSON"
     end
 
     def query_url_params(query)
       params = {
-        username: "demo"
+        username: Geocoder.config[:username] || 'demo'
       }.merge(super)
       if query.reverse_geocode?
         lat,lon = query.coordinates
@@ -42,8 +42,7 @@ module Geocoder::Lookup
     # Geocoder::Result object or nil on timeout or other error.
     #
     def results(query)
-      return []
-      return [] unless doc = fetch_data(query)
+      []
     end
 
 
