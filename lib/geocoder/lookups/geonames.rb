@@ -21,12 +21,12 @@ module Geocoder::Lookup
     private # ---------------------------------------------------------------
 
     def lookup_method(query)
-      query.reverse_geocode? ? "countrySubdivision" : ""
+      query.reverse_geocode? ? "countrySubdivision" : "search"
     end
 
     def query_url_params(query)
       params = {
-        username: configuration.username || "demo"
+        username: "demo"
       }.merge(super)
       if query.reverse_geocode?
         lat,lon = query.coordinates
@@ -37,6 +37,15 @@ module Geocoder::Lookup
       end
       params
     end
+
+    ##
+    # Geocoder::Result object or nil on timeout or other error.
+    #
+    def results(query)
+      return []
+      return [] unless doc = fetch_data(query)
+    end
+
 
   end
 end

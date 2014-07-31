@@ -5,7 +5,7 @@ require 'test_helper'
 class GeonamesTest < GeocoderTestCase
 
   def setup
-    Geocoder.configure(lookup: :geonames, username: :demo)
+    Geocoder.configure(geonames: { username: :demo })
   end
 
   def test_truth
