@@ -8,14 +8,15 @@ class GeonamesTest < GeocoderTestCase
     Geocoder.configure(lookup: :geonames, username: 'demo')
   end
 
-  def test_truth
-    assert true
-  end
-
   def test_query_for_reverse_geocode
     lookup = Geocoder::Lookup::Geonames.new
     url = lookup.query_url(Geocoder::Query.new([45.423733, -75.676333]))
     assert_match(/countrySubdivisionJSON\?lat=45\.423733&lon=-75\.676333&username=demo/, url)
+  end
+
+  def test_url_contains_username
+    query = Geocoder::Query.new("Prague")
+    assert_match(/&username=demo/, query.url)
   end
 
 end
