@@ -29,9 +29,9 @@ module Geocoder::Lookup
         username: Geocoder.config[:username] || 'demo'
       }.merge(super)
       if query.reverse_geocode?
-        lat,lon = query.coordinates
+        lat,lng = query.coordinates
         params[:lat] = lat
-        params[:lon] = lon
+        params[:lng] = lng
       else
         params[:q] = query.sanitized_text
       end
@@ -43,7 +43,7 @@ module Geocoder::Lookup
     #
     def results(query)
       return [] unless doc = fetch_data(query)
-      doc['geonames']
+      query.reverse_geocode? ? doc : doc['geonames']
     end
 
 
