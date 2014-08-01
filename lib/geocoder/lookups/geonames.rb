@@ -42,7 +42,8 @@ module Geocoder::Lookup
     # Geocoder::Result object or nil on timeout or other error.
     #
     def results(query)
-      []
+      return [] unless doc = fetch_data(query)
+      doc['geonames']
     end
 
 
