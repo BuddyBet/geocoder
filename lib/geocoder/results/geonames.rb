@@ -8,7 +8,7 @@ module Geocoder::Result
     end
 
     def city
-      @data['adminName1']
+      @data['name'] || "" # geonames does not return the city for reverse geocoding
     end
 
     def state

@@ -20,8 +20,9 @@ class GeonamesTest < GeocoderTestCase
   end
 
   def test_result_components
-    result = Geocoder.search("Madison Square Garden, New York, NY").first
-    assert_equal "New York", result.city
+    result = Geocoder.search("Prague").first
+    assert_equal "Prague", result.city
+    assert_equal "Czech Republic", result.country
   end
 
   def test_reverse_geocoding

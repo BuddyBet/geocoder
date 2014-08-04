@@ -203,6 +203,10 @@ module Geocoder
 
     class Geonames
       private
+      def default_fixture_filename
+        "geonames_prague"
+      end
+
       def fixture_prefix
         "geonames"
       end
