@@ -24,4 +24,10 @@ class GeonamesTest < GeocoderTestCase
     assert_equal "New York", result.city
   end
 
+  def test_reverse_geocoding
+    result = Geocoder.search(Geocoder::Query.new([50, 14])).first
+    assert_equal "CZ", result.country_code
+    assert_equal "Czech Republic", result.country
+  end
+
 end

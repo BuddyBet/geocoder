@@ -43,7 +43,7 @@ module Geocoder::Lookup
     #
     def results(query)
       return [] unless doc = fetch_data(query)
-      query.reverse_geocode? ? doc : doc['geonames']
+      query.reverse_geocode? ? [doc] : doc['geonames']
     end
 
 

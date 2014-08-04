@@ -200,6 +200,14 @@ module Geocoder
         "geocodio_1101_pennsylvania_ave"
       end
     end
+
+    class Geonames
+      private
+      def fixture_prefix
+        "geonames"
+      end
+    end
+
   end
 end
 
