@@ -31,4 +31,25 @@ class GeonamesTest < GeocoderTestCase
     assert_equal "Czech Republic", result.country
   end
 
+  def test_raises_over_limit_exception
+    Geocoder.configure Geocoder.configure(:always_raise => [Geocoder::OverQueryLimitError])
+    assert_raises Geocoder::OverQueryLimitError do
+      Geocoder.search("over query limit")
+    end
+  end
+
+  def test_raises_request_denied
+    Geocoder.configure Geocoder.configure(:always_raise => [Geocoder::RequestDenied])
+    assert_raises Geocoder::RequestDenied do
+      Geocoder.search("request denied")
+    end
+  end
+
+  def test_raises_generic_error
+    Geocoder.configure Geocoder.configure(:always_raise => [Geocoder::Error])
+    assert_raises Geocoder::Error do
+      Geocoder.search("generic error")
+    end
+  end
+
 end

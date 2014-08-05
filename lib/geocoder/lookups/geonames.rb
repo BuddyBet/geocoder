@@ -43,9 +43,24 @@ module Geocoder::Lookup
     #
     def results(query)
       return [] unless doc = fetch_data(query)
+      parse_errors(doc)
       query.reverse_geocode? ? [doc] : doc['geonames']
     end
 
+    def parse_errors(response)
+      value = response['status']['value'] rescue 0
+      case value
+      when 18, 19, 20
+        raise_error(Geocoder::OverQueryLimitError, "over query limit.") ||
+          warn("Geonames Geocoding API error: over query limit.")
+      when 10
+        raise_error(Geocoder::RequestDenied, "request denied.") ||
+          warn("Geonames Geocoding API error: request denied.")
+      when 11..17, 21..23
+        raise_error(Geocoder::Error, "generic error.") ||
+          warn("Geonames Geocoding API error: generic error.")
+      end
+    end
 
   end
 end
