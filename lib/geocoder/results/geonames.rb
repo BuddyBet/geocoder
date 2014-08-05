@@ -18,6 +18,7 @@ module Geocoder::Result
     def state_code
       @data['adminCode1']
     end
+    alias_method :statecode, :state_code
 
     def postal_code
       "" # geonames.org has a separate method to get postal codes
@@ -30,6 +31,7 @@ module Geocoder::Result
     def country_code
       @data['countryCode']
     end
+    alias_method :countrycode, :country_code
 
     def address
       "" # check geonames.org documentation
