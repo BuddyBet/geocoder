@@ -42,9 +42,12 @@ module Geocoder::Lookup
     # Geocoder::Result object or nil on timeout or other error.
     #
     def results(query)
-      return [] unless doc = fetch_data(query)
-      parse_errors(doc)
-      query.reverse_geocode? ? [doc] : doc['geonames']
+      if !query.blank? && doc = fetch_data(query)
+        parse_errors(doc)
+        query.reverse_geocode? ? [doc] : doc['geonames']
+      else
+        []
+      end
     end
 
     def parse_errors(response)
